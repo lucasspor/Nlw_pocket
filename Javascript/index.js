@@ -1,7 +1,24 @@
-const { select } = require('@inquirer/prompts')
+const { select, input } = require('@inquirer/prompts')
+const metas = []
 
-const start = async() => {
-  while(true){
+
+const cadastrarMeta = async () => {
+  const meta = await input({ message: "Digite a meta" })
+
+  if (!meta.length) {
+    console.log("A meta não pode ser vazia")
+    return cadastrarMeta()
+  }
+  
+  metas.push({ value: meta, checked: false })
+}
+
+const listItens = () => {
+  console.log(metas)
+}
+
+const start = async () => {
+  while (true) {
     let opcao = await select({
       message: "Menu >",
       choices: [
@@ -15,17 +32,17 @@ const start = async() => {
         },
         {
           name: "Sair",
-          value:"sair"
+          value: "sair"
         }
       ]
     })
-    switch(opcao){
+    switch (opcao) {
       case "cadastrar":
-        console.log("vamos cadastrar")
-      break
+        await cadastrarMeta()
+        break
       case "listar":
-        console.log("vamos listar")
-      break
+        listItens()
+        break
       case "sair":
         console.log("até a proxima")
         return
