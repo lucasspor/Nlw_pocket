@@ -19,19 +19,38 @@ const listGoals = async () => {
     choices: [...metas]
   })
 
-  if(!replies.length){
-    return console.log("Nenhuma meta selecionada")
-  }
+  metas.forEach(m => {
+    m.checked = false
+  })
 
+  if(!replies.length){
+    console.log("Nenhuma meta selecionada")
+    return 
+  }
+  
   replies.forEach(reply => {
     const meta = metas.find(meta => {
       return meta.value == reply
     })
 
+
     meta.checked = true
   })
 
   console.log('Metas concluidas ou não')
+}
+
+const goalAccomplished = async () =>{
+  const accomplish = metas.filter( (meta) =>{
+    return meta.checked
+  }  )
+
+  if(!accomplish.length){
+    console.log("nenhuma realizada")
+    return
+  }
+
+  console.log(accomplish)
 }
 
 const start = async () => {
@@ -48,6 +67,10 @@ const start = async () => {
           value: "listar"
         },
         {
+          name: "Metas realizdas",
+          value: "metas realizadas"
+        },
+        {
           name: "Sair",
           value: "sair"
         }
@@ -59,6 +82,9 @@ const start = async () => {
         break
       case "listar":
         await listGoals()
+        break
+      case "metas realizadas":
+        await goalAccomplished()
         break
       case "sair":
         console.log("até a proxima")
