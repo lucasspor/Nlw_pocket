@@ -23,11 +23,11 @@ const listGoals = async () => {
     m.checked = false
   })
 
-  if(!replies.length){
+  if (!replies.length) {
     console.log("Nenhuma meta selecionada")
-    return 
+    return
   }
-  
+
   replies.forEach(reply => {
     const meta = metas.find(meta => {
       return meta.value == reply
@@ -40,17 +40,30 @@ const listGoals = async () => {
   console.log('Metas concluidas ou não')
 }
 
-const goalAccomplished = async () =>{
-  const accomplish = metas.filter( (meta) =>{
+const goalAccomplished = async () => {
+  const accomplish = metas.filter((meta) => {
     return meta.checked
-  }  )
+  })
 
-  if(!accomplish.length){
-    console.log("nenhuma realizada")
+  if (!accomplish.length) {
+    console.log("nenhuma meta foi realizada")
     return
   }
 
   console.log(accomplish)
+}
+
+const openedGoals = async() => {
+  const openeds = metas.filter( (meta) =>{
+    return !meta.checked
+  } )
+
+  if (!openeds.length) {
+    console.log("nenhuma metas esta aberta")
+    return
+  }
+
+  console.log(openeds)
 }
 
 const start = async () => {
@@ -71,6 +84,10 @@ const start = async () => {
           value: "metas realizadas"
         },
         {
+          name: "Metas abertas",
+          value: "metas abertas"
+        },
+        {
           name: "Sair",
           value: "sair"
         }
@@ -85,6 +102,9 @@ const start = async () => {
         break
       case "metas realizadas":
         await goalAccomplished()
+        break
+      case "metas abertas":
+        await openedGoals()
         break
       case "sair":
         console.log("até a proxima")
