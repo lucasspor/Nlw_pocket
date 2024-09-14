@@ -1,6 +1,6 @@
 const { select, input, checkbox } = require('@inquirer/prompts')
 
-const metas = []
+let metas = []
 
 const registerGoals = async () => {
   const meta = await input({ message: "Digite a meta" })
@@ -16,7 +16,8 @@ const registerGoals = async () => {
 const listGoals = async () => {
   const replies = await checkbox({
     message: "Use as Setas para selecionar uma meta, o Espaço para marcer ou desmarcar e o Enter para finalizar ",
-    choices: [...metas]
+    choices: [...metas],
+    instructions: false
   })
 
   metas.forEach(m => {
@@ -52,7 +53,7 @@ const goalAccomplished = async () => {
 
   await select({
     message: "Esta metas foram realizadas: " +  accomplish.length,
-    choices: [...accomplish]
+    choices: [...accomplish],
   })
 }
 
@@ -70,6 +71,30 @@ const openedGoals = async() => {
     message: "Metas Abertas: " + openeds.length,
     choices: [...openeds]
   })
+}
+
+const deleteGoals = async () => {
+  const uncheckedGoals = metas.map( meta => {
+    return {value: meta.value, checked: false}
+  })
+
+  const deletedItems = await checkbox({
+    message: "Selecione item para deletar",
+    choices: [...uncheckedGoals],
+  })
+
+  if(!deletedItems.length === 0){
+    console.log("Não possuem items a serem deletados!")
+    return
+  }
+
+  deletedItems.forEach(item => {
+   metas = metas.filter(meta => {
+      return meta.value != item
+    })
+  })
+
+  console.log("Meta(s) deletada(s) com sucesso")
 }
 
 const start = async () => {
@@ -94,6 +119,10 @@ const start = async () => {
           value: "metas abertas"
         },
         {
+          name: "Deletar metas",
+          value: "deletar metas"
+        },
+        {
           name: "Sair",
           value: "sair"
         }
@@ -111,6 +140,9 @@ const start = async () => {
         break
       case "metas abertas":
         await openedGoals()
+        break
+      case "deletar metas":
+        await deleteGoals()
         break
       case "sair":
         console.log("até a proxima")
