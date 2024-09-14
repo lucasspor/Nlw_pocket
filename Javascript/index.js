@@ -1,5 +1,5 @@
 const { select, input, checkbox } = require('@inquirer/prompts')
-
+let message = "Bem vindo ao app de metas"
 let metas = []
 
 const registerGoals = async () => {
@@ -25,7 +25,7 @@ const listGoals = async () => {
   })
 
   if (!replies.length) {
-    console.log("Nenhuma meta selecionada")
+    message = "Nenhuma meta selecionada"
     return
   }
 
@@ -38,7 +38,7 @@ const listGoals = async () => {
     meta.checked = true
   })
 
-  console.log('Metas concluidas ou não')
+  message = 'Metas concluidas ou não'
 }
 
 const goalAccomplished = async () => {
@@ -47,7 +47,7 @@ const goalAccomplished = async () => {
   })
 
   if (!accomplish.length) {
-    console.log("nenhuma meta foi realizada")
+    message = "nenhuma meta foi realizada"
     return
   }
 
@@ -63,7 +63,7 @@ const openedGoals = async() => {
   } )
 
   if (!openeds.length) {
-    console.log("nenhuma meta esta aberta")
+    message = "nenhuma meta esta aberta"
     return
   }
 
@@ -84,7 +84,7 @@ const deleteGoals = async () => {
   })
 
   if(!deletedItems.length === 0){
-    console.log("Não possuem items a serem deletados!")
+    message = "Não possuem items a serem deletados!"
     return
   }
 
@@ -94,11 +94,25 @@ const deleteGoals = async () => {
     })
   })
 
-  console.log("Meta(s) deletada(s) com sucesso")
+  message = "Meta(s) deletada(s) com sucesso"
+}
+
+const showMessages = () => {
+  console.clear()
+
+  if(message != ""){
+    console.log(message)
+    console.log("")
+    message = ""
+  }
+
 }
 
 const start = async () => {
+ 
   while (true) {
+    showMessages()
+
     let opcao = await select({
       message: "Menu >",
       choices: [
