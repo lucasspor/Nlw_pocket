@@ -2,7 +2,7 @@ const { select, input, checkbox } = require('@inquirer/prompts')
 const fs = require("fs").promises
 
 let message = "Bem vindo ao app de metas"
-let metas = []
+let metas
 
 const loadGoals = async () => {
   try {
@@ -142,7 +142,7 @@ const showMessages = () => {
 }
 
 const start = async () => {
-  loadGoals()
+  await loadGoals()
   while (true) {
     await showMessages()
     await saveGoals()
