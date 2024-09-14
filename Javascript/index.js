@@ -30,6 +30,11 @@ const registerGoals = async () => {
 }
 
 const listGoals = async () => {
+  if(!metas.length){
+    message = "Não existem metas"
+    return
+  }
+
   const replies = await checkbox({
     message: "Use as Setas para selecionar uma meta, o Espaço para marcer ou desmarcar e o Enter para finalizar ",
     choices: [...metas],
@@ -58,6 +63,10 @@ const listGoals = async () => {
 }
 
 const goalAccomplished = async () => {
+  if(!metas.length){
+    message = "Não existem metas"
+    return
+  }
   const accomplish = metas.filter((meta) => {
     return meta.checked
   })
@@ -74,6 +83,10 @@ const goalAccomplished = async () => {
 }
 
 const openedGoals = async() => {
+  if(!metas.length){
+    message = "Não existem metas"
+    return
+  }
   const openeds = metas.filter( (meta) =>{
     return !meta.checked
   } )
@@ -90,6 +103,10 @@ const openedGoals = async() => {
 }
 
 const deleteGoals = async () => {
+  if(!metas.length){
+    message = "Não existem metas"
+    return
+  }
   const uncheckedGoals = metas.map( meta => {
     return {value: meta.value, checked: false}
   })
