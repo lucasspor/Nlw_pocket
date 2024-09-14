@@ -50,7 +50,10 @@ const goalAccomplished = async () => {
     return
   }
 
-  console.log(accomplish)
+  await select({
+    message: "Esta metas foram realizadas: " +  accomplish.length,
+    choices: [...accomplish]
+  })
 }
 
 const openedGoals = async() => {
@@ -59,11 +62,14 @@ const openedGoals = async() => {
   } )
 
   if (!openeds.length) {
-    console.log("nenhuma metas esta aberta")
+    console.log("nenhuma meta esta aberta")
     return
   }
 
-  console.log(openeds)
+  await select({
+    message: "Metas Abertas: " + openeds.length,
+    choices: [...openeds]
+  })
 }
 
 const start = async () => {
