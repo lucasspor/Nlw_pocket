@@ -15,6 +15,20 @@
       "when": 1726401604388,
       "tag": "0001_glamorous_crystal",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726412939325,
+      "tag": "0002_small_maddog",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1726413083230,
+      "tag": "0003_productive_dreadnoughts",
+      "breakpoints": true
     }
   ]
 }
